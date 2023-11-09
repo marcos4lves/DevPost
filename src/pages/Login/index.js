@@ -3,33 +3,99 @@ import { View, Text } from 'react-native'
 import { Container, Title, Input, Button, ButtonText, SignUpButton, SignUpText } from './styles'
 
 export default function Login() {
-    const [login, useLogin] = useState(true);
+    const [login, setLogin] = useState(false)
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [name, setName] = useState("")
+    
+    function toggleLogin() {
+        setLogin(!login)
+        setEmail('')
+        setName('')
+        setPassword('')
+    }
+
+    function handleSignIn() {
+        if ( email == "" || password == "" ) {
+            alert("Preencha todos os campos corretamente")
+            return
+        }
+
+        // Criar lógica de acesso
+    }
+
+    function handleSignUp() {
+        if ( name == "" || email == "" || password == "" ) {
+            alert("Preencha todos os campos corretamente")
+            return
+        }
+
+        // Criar lógia de enviar dados para o firebase e criar e registrar uma nova conta
+    }
 
     if(login) {
         return (
         <Container>
             <Title>
-                Dev<Text style={{ color: '#E52246'}}>Post</Text>
+                Dev<Text style = {{ color: '#E52246'}}>Post</Text>
             </Title>
             
             <Input 
-                placeholder ="seuemail@test.com"
+                placeholder = "Seu nome"
+                value = { name }
+                onChangeText = { ( text ) => setName( text )}
+            />
+
+            <Input 
+                placeholder = "seuemail@test.com"
+                value = { email }
+                onChangeText = { ( text ) => setEmail ( text )}
             />
 
             <Input 
                 placeholder = "********"
+                value = { password } 
+                onChangeText = { ( text ) => setPassword ( text )}
             />
 
-            <Button>
-                <ButtonText> Acessar </ButtonText>
+            <Button onPress = { handleSignUp }>
+                <ButtonText> Cadastrar </ButtonText>
             </Button>
 
-            <SignUpButton>
-                <SignUpText> Criar uma conta </SignUpText>
+            <SignUpButton onPress = { toggleLogin }>
+                <SignUpText> Já possuo uma conta </SignUpText>
             </SignUpButton>
 
         </Container>
     )
     }
+    return (
+        <Container>
+            <Title>
+                Dev<Text style = {{ color: '#E52246'}}>Post</Text>
+            </Title>
+            
+            <Input 
+                placeholder = "seuemail@test.com"
+                value = { email }
+                onChangeText = { ( text ) => setEmail ( text )}
+            />
+
+            <Input 
+                placeholder = "********"
+                value = { password }
+                onChangeText = { ( text ) => setPassword ( text )}
+            />
+
+            <Button onPress = { handleSignIn }>
+                <ButtonText> Acessar </ButtonText>
+            </Button>
+
+            <SignUpButton onPress = { toggleLogin }>
+                <SignUpText> Criar uma conta </SignUpText>
+            </SignUpButton>
+
+        </Container>
+    )
     
 }
