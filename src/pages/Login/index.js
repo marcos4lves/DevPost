@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { View, Text } from 'react-native'
 import { Container, Title, Input, Button, ButtonText, SignUpButton, SignUpText } from './styles'
+import { AuthContext } from '../../contexts/auth'
 
 export default function Login() {
     const [login, setLogin] = useState(false)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [name, setName] = useState("")
+    const { signUp } = useContext(AuthContext)
     
     function toggleLogin() {
         setLogin(!login)
@@ -24,13 +26,14 @@ export default function Login() {
         // Criar lógica de acesso
     }
 
-    function handleSignUp() {
+    async function handleSignUp() {
         if ( name == "" || email == "" || password == "" ) {
             alert("Preencha todos os campos corretamente")
             return
         }
 
         // Criar lógia de enviar dados para o firebase e criar e registrar uma nova conta
+        await signUp(name, email, password)
     }
 
     if(login) {
